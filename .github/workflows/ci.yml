@@ -1,0 +1,31 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Build the Horizons App and run the tests
+
+on:
+  push:
+    branches: 
+      - develop
+      - feature
+
+jobs:
+  build_app_and_run_test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the Repo
+      uses: actions/checkout@v4
+    - name: Setup .NET v8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build the project
+      run: dotnet build --no-restore
+      
+    - name: Run Unit and Integration tests
+      run: dotnet test --no-build --verbosity normal
