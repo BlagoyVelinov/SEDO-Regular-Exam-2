@@ -1,6 +1,5 @@
 pipeline {
     agent any
-    // Test comment for another branch
     stages {
         stage('Checkout SCM') {
             steps {
